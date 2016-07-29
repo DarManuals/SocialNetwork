@@ -36,6 +36,21 @@ public class newsController {
         
         posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
         
+//        final PageRequest page1 = new PageRequest(
+//  0, 20, Direction.ASC, "lastName", "salary"
+//);
+//
+//final PageRequest page2 = new PageRequest(
+//  0, 20, new Sort(
+//    new Order(Direction.ASC, "lastName"), 
+//    new Order(Direction.DESC, "salary")
+//  )
+//);
+//
+//dao.findAll(page1);
+
+//PageRequest(int page, int size, Sort.Direction direction, String... properties) 
+        
         m.addAttribute("allposts", posts );
         
         return "news";

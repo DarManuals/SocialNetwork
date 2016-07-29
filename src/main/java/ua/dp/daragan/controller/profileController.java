@@ -5,6 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.dp.daragan.entity.Posts;
 import ua.dp.daragan.entity.User;
 import ua.dp.daragan.entity.UserDetails;
+import ua.dp.daragan.repository.PostsRepository;
 import ua.dp.daragan.repository.UserDetailsRepository;
 import ua.dp.daragan.repository.UserRepository;
 import ua.dp.daragan.util.DateTimeUtil;
@@ -30,15 +35,20 @@ public class profileController {
     private UserRepository userRepo;  
     
     @Autowired
+    private PostsRepository postRepo;
+    
+    @Autowired
     private UserDetailsRepository userDetailsRepo;
     
     @RequestMapping("/profile")
-    public String profileOwn(Model m) throws ParseException{
+    public String profileOwn(Model m, @PageableDefault(page = 0, size = 5) Pageable p) throws ParseException{
+        
         
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();        
         User u = userRepo.findByUsername(userName);
         
-        List<Posts> posts = u.getPosts();
+        int pagesNum = postRepo.findByUser(u).size() / 5 + 1; //how many pages exists
+        List<Posts> posts = postRepo.findByUser(u, p);
         posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
         
         m.addAttribute("user", u);
@@ -46,12 +56,14 @@ public class profileController {
         m.addAttribute("user_details", u.getUserDetails() );
         m.addAttribute("posting_enable", 1 );
         m.addAttribute("b_date", DateTimeUtil.DateToStr(u.getUserDetails().getBirthDate()) );
+        m.addAttribute("pages", pagesNum );
+        m.addAttribute("pageUrl", "/profile" );
                
         return "profile";
     }    
     
     @RequestMapping("/profile/{id}")
-    public String profileOther(@PathVariable Long id, Model m){   
+    public String profileOther(@PathVariable Long id, Model m, @PageableDefault(page = 0, size = 5) Pageable p){   
         
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         User me = userRepo.findByUsername(userName);
@@ -70,8 +82,8 @@ public class profileController {
                     break;
                 }
             }
-            
-            List<Posts> posts = u.getPosts();
+            int pagesNum = postRepo.findByUser(u).size() / 5 + 1; //how many pages exists
+            List<Posts> posts = postRepo.findByUser(u, p);
             posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
                 
             m.addAttribute("user", u);
@@ -80,6 +92,8 @@ public class profileController {
             m.addAttribute("posting_enable", 0 );
             m.addAttribute("isFriend", isFriend );
             m.addAttribute("b_date", DateTimeUtil.DateToStr(u.getUserDetails().getBirthDate()) );
+            m.addAttribute("pages", pagesNum );
+            m.addAttribute("pageUrl", "/profile/" + id );
         
         }catch(Exception e){
             return "error";

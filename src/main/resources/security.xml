@@ -9,16 +9,17 @@
 
         
         <http auto-config="true" use-expressions="true">
+                <intercept-url pattern="/" access="permitAll" />
+                <intercept-url pattern="/index" access="permitAll" />
                 <intercept-url pattern="/js/**" access="permitAll" />
                 <intercept-url pattern="/css/**" access="permitAll" />
                 <intercept-url pattern="/images/**" access="permitAll" />
+                
                 <intercept-url pattern="/profile" access="hasRole('ROLE_USER')"/>
                 <intercept-url pattern="/profile/**" access="hasRole('ROLE_USER')"/>
                 <intercept-url pattern="/search" access="hasRole('ROLE_USER')"/>
                 <intercept-url pattern="/news" access="hasRole('ROLE_USER')"/>
-                
-                <intercept-url pattern="/" access="hasRole('ROLE_ANONYMOUS')" />
-                <intercept-url pattern="/index" access="hasRole('ROLE_ANONYMOUS')" />
+                                
                 <intercept-url pattern="/login" access="hasRole('ROLE_ANONYMOUS')" />
                 <intercept-url pattern="/registration" access="hasRole('ROLE_ANONYMOUS')" />
                 

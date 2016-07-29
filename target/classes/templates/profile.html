@@ -113,16 +113,8 @@
             
             <div class="clearfix"> </div>
 
-                <ul class="pagination center-block">
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">7</a></li>
-                    <li><a href="#">8</a></li>
-                    <li><a href="#">9</a></li>
+                <ul class="pagination center-block" >
+                    <li th:each="i : ${#numbers.sequence( 1, pages)}" ><a th:href="${pageUrl + '?page=' + (i - 1)}" th:text="${i}"></a></li>
                 </ul>
         </div>
 
