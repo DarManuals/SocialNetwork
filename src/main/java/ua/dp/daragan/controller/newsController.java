@@ -34,6 +34,8 @@ public class newsController {
             posts.addAll(friend.getPosts());
         }
         
+        posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
+        
         m.addAttribute("allposts", posts );
         
         return "news";
