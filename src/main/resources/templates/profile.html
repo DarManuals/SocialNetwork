@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" 
+       xmlns:th="http://www.thymeleaf.org" 
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>Aggregator</title>
+        <div th:replace="main :: header"></div>
+        <style th:replace="main :: custom-style" ></style>
+    </head>
+
+    <body role="document">
+
+        <!-- Fixed navbar -->
+        <div th:replace="main :: top-nav-bar"></div>
+
+        <div class="container">
+
+            <div class="row"> 
+                <div class="page-header">                   
+                    <h2 th:text="${userName}"></h2> 
+                </div>
+
+                <div class="col-md-4 сol-lg-4">
+
+                    <img data-src="holder.js/300x200" class="img-thumbnail" alt="300x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE1MCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE5cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MzAweDIwMDwvdGV4dD48L3N2Zz4=" style="width: 300px; height: 200px;" />
+
+                </div>
+                <div class="col-md-8 col-lg-8">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    <h4 class="pull-left">Информация</h4> 
+                                    
+                                    <span th:if="${isFriend == false}">
+                                        <a id="read_user" th:href="${'/profile/follow/' + userId}" style="text-decoration: none;"><button class="btn btn-sm btn-default pull-right" type="button" >Подписаться</button></a>
+                                    </span>
+                                    <span th:if="${isFriend == true}">
+                                        <a id="read_user" th:href="${'/profile/unfollow/' + userId}" style="text-decoration: none;"><button class="btn btn-sm btn-default pull-right" type="button" >Отписаться</button></a>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Город: </b></td><td th:text="${user_details.getCity()}"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Дата рождения: </b></td><td type="date" th:text="${b_date}"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Работа: </b></td><td th:text="${user_details.getJob()}"></td>
+                            </tr>
+                            <tr>
+                                <td><b>О себе: </b></td><td th:text="${user_details.getAbout()}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>           
+            </div>
+        </div>
+        
+        <div th:if="${posting_enable == 1}" >
+                    
+        </div>
+
+
+        <div class="container">
+            <div class="well well-lg">
+                <h4><i>Публикации <span th:if="${posting_enable == 1}"><a data-toggle="collapse" href="#collapse1" class="muted_link pull-right">Написать</a></span></i></h4>
+                
+                <span th:if="${posting_enable == 1}">
+                <form th:action="@{/posts}" method="post">
+                    <div class="panel-group">
+                        <div class="panel panel-default">  
+                            <div id="collapse1" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <textarea class="form-control" rows="5" id="wall_msg" name="postMsg"></textarea>
+                                </div>
+                                <div class="panel-footer"><button type="submit" class="btn btn-primary">Отправить</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                </span>
+                <span th:if="${posting_enable == 0}">
+                    <hr />
+                </span>
+                
+                
+                <div th:if="${#lists.isEmpty(posts_data)}" >
+                    У вас ещё нет публикаций.
+                </div>
+
+
+                <div  th:each="post : ${posts_data}" class="container">
+                    <div>
+                        <div th:text="${post.getPostMsg()}"></div>
+                        <br />
+                        <div >
+                            <i class="text-muted">Автор: <a th:href="${'/profile/' + userId}" class="muted_link" th:text="${userName}"></a>, 
+                                Опубликовано: <span th:text="${post.getDate()}" class="date_time"></span> 
+                                <a th:if="${posting_enable == 1}" th:href="${'/posts/del/' + post.getPostId()}" class="muted_link"> Удалить</a>
+                            </i>
+                        </div>
+                    </div>   
+                    <hr />
+                </div>
+
+                
+            </div>
+            
+            <div class="clearfix"> </div>
+
+                <ul class="pagination center-block">
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">6</a></li>
+                    <li><a href="#">7</a></li>
+                    <li><a href="#">8</a></li>
+                    <li><a href="#">9</a></li>
+                </ul>
+        </div>
+
+      
+        <div th:replace="main :: footer"></div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <span th:replace="main :: scripts-js"></span>
+        <script type="text/javascript">   
+            /*<![CDATA[*/
+            $(document).ready(function() {     
+               var dat = $('.date_time');
+               jQuery.each( dat, function( ) {
+                    var txt = $(this).text();
+                    var dt = new Date(txt);                    
+                    var res = dt.getDay() +"/"+ dt.getMonth() +"/"+ dt.getFullYear() +", "+ dt.getHours() +":"+ dt.getMinutes() +":"+ dt.getSeconds();
+                    $(this).html(res);
+                });
+            });   
+            /*]]>*/
+        </script>
+    </body>
+</html>

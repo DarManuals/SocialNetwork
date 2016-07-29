@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" 
+       xmlns:th="http://www.thymeleaf.org" 
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>Aggregator</title>
+        <div th:replace="main :: header"></div>
+        <style th:replace="main :: custom-style" ></style>
+    </head>
+
+    <body role="document">
+
+        <!-- Fixed navbar -->
+        <div th:replace="main :: top-nav-bar"></div>
+
+        <div class="container">
+
+            <div class="page-header">
+                <h2>Страница поиска пользователей</h2>
+            </div>
+
+            <div class="form-group">
+                <label for="loginInput">Поисковый запрос:</label>
+                <input type="text" class="form-control" id="loginInput" placeholder="Введите логин" />
+            </div>
+
+            <div class="well well-lg"> 
+                <h5><b>Результаты поиска:</b></h5>
+                <hr />
+
+                <div th:each="user : ${users}" >
+                    <div>
+                        <b class="pull-left">Логин: </b> <span th:text="${user.getUsername()}" ></span> <a th:href="${'/profile/' + user.getUserId()}" class="pull-right">перейти на страницу</a>
+                        <hr />
+                    </div>   
+                </div>
+            </div>    
+
+
+            <ul class="pagination center-block">
+                <li><a href="#">1</a></li>
+                <li class="active"><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+            </ul>       
+        </div>
+
+
+
+        <div th:replace="main :: footer"></div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <span th:replace="main :: scripts-js"></span>
+    </body>
+</html>
