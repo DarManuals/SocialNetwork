@@ -18,7 +18,7 @@
 
             <div class="row"> 
                 <div class="page-header">                   
-                    <h2 th:text="${userName}"></h2> 
+                    <h2 th:text="${user.getUsername()}"></h2> 
                 </div>
 
                 <div class="col-md-4 сol-lg-4">
@@ -34,10 +34,10 @@
                                     <h4 class="pull-left">Информация</h4> 
                                     
                                     <span th:if="${isFriend == false}">
-                                        <a id="read_user" th:href="${'/profile/follow/' + userId}" style="text-decoration: none;"><button class="btn btn-sm btn-default pull-right" type="button" >Подписаться</button></a>
+                                        <a id="read_user" th:href="${'/profile/follow/' + user.getUserId()}" style="text-decoration: none;"><button class="btn btn-sm btn-default pull-right" type="button" >Подписаться</button></a>
                                     </span>
                                     <span th:if="${isFriend == true}">
-                                        <a id="read_user" th:href="${'/profile/unfollow/' + userId}" style="text-decoration: none;"><button class="btn btn-sm btn-default pull-right" type="button" >Отписаться</button></a>
+                                        <a id="read_user" th:href="${'/profile/unfollow/' + user.getUserId()}" style="text-decoration: none;"><button class="btn btn-sm btn-default pull-right" type="button" >Отписаться</button></a>
                                     </span>
                                 </th>
                             </tr>
@@ -99,7 +99,7 @@
                         <div th:text="${post.getPostMsg()}"></div>
                         <br />
                         <div >
-                            <i class="text-muted">Автор: <a th:href="${'/profile/' + userId}" class="muted_link" th:text="${userName}"></a>, 
+                            <i class="text-muted">Автор: <span class="muted_link" th:text="${user.getUsername()}"></span>, 
                                 Опубликовано: <span th:text="${post.getDate()}" class="date_time"></span> 
                                 <a th:if="${posting_enable == 1}" th:href="${'/posts/del/' + post.getPostId()}" class="muted_link"> Удалить</a>
                             </i>

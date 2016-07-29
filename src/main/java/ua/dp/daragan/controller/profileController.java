@@ -41,8 +41,7 @@ public class profileController {
         List<Posts> posts = u.getPosts();
         posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
         
-        m.addAttribute("userId", u.getUserId());
-        m.addAttribute("userName", u.getUsername());
+        m.addAttribute("user", u);
         m.addAttribute("posts_data", posts );
         m.addAttribute("user_details", u.getUserDetails() );
         m.addAttribute("posting_enable", 1 );
@@ -75,8 +74,7 @@ public class profileController {
             List<Posts> posts = u.getPosts();
             posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
                 
-            m.addAttribute("userId", u.getUserId());
-            m.addAttribute("userName", u.getUsername());
+            m.addAttribute("user", u);
             m.addAttribute("posts_data", posts);
             m.addAttribute("user_details", u.getUserDetails() );
             m.addAttribute("posting_enable", 0 );

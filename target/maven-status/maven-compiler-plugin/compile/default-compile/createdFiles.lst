@@ -1,7 +1,6 @@
 ua/dp/daragan/NetworkApplication.class
 ua/dp/daragan/controller/profileController.class
 ua/dp/daragan/entity/User.class
-ua/dp/daragan/controller/loginController.class
 ua/dp/daragan/entity/UserDetails.class
 ua/dp/daragan/GlobalConfig.class
 ua/dp/daragan/repository/PostsRepository.class

@@ -5,7 +5,6 @@
 /home/bogdan/NetBeansProjects/SocialNerwork/src/main/java/ua/dp/daragan/repository/UserRepository.java
 /home/bogdan/NetBeansProjects/SocialNerwork/src/main/java/ua/dp/daragan/entity/UserDetails.java
 /home/bogdan/NetBeansProjects/SocialNerwork/src/main/java/ua/dp/daragan/repository/UserDetailsRepository.java
-/home/bogdan/NetBeansProjects/SocialNerwork/src/main/java/ua/dp/daragan/controller/loginController.java
 /home/bogdan/NetBeansProjects/SocialNerwork/src/main/java/ua/dp/daragan/controller/profileController.java
 /home/bogdan/NetBeansProjects/SocialNerwork/src/main/java/ua/dp/daragan/util/DateTimeUtil.java
 /home/bogdan/NetBeansProjects/SocialNerwork/src/main/java/ua/dp/daragan/entity/User.java
