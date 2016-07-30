@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ua.dp.daragan.NetworkApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.751 sec - in ua.dp.daragan.NetworkApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.775 sec - in ua.dp.daragan.NetworkApplicationTests
