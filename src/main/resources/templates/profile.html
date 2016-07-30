@@ -113,9 +113,11 @@
             
             <div class="clearfix"> </div>
 
-            <ul class="pagination center-block" >
-                <li th:each="i : ${#numbers.sequence( 1, pages)}" ><a th:href="${pageUrl + '?page=' + (i - 1)}" th:text="${i}"></a></li>
-            </ul>
+            <div th:if="${!#lists.isEmpty(posts_data)}" >
+                <ul class="pagination center-block" >
+                    <li th:each="i : ${#numbers.sequence( 1, pages)}" ><a th:href="${pageUrl + '?page=' + (i - 1)}" th:text="${i}"></a></li>
+                </ul>
+            </div>           
         </div>
 
       

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ public class newsController {
     private UserRepository userRepo;
     
     @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public String search(Model m, @PageableDefault(page = 0, size = 5) Pageable p){
+    public String search(Model m, @PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "postId") Pageable p){
         
         List<Posts> posts = new LinkedList<Posts>();
         
@@ -42,6 +43,7 @@ public class newsController {
         
          int startIndex = p.getPageNumber() * p.getPageSize();
          int endIndex = startIndex + p.getPageSize();
+            if(startIndex > posts.size() ) return "redirect:/news";
             if(endIndex > posts.size() ) endIndex = posts.size();
    
         m.addAttribute("allposts", posts.subList(startIndex, endIndex) );
