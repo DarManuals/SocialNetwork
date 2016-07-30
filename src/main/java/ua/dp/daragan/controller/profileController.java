@@ -45,7 +45,7 @@ public class profileController {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();        
         User u = userRepo.findByUsername(userName);
         
-        int pagesNum = postRepo.findByUser(u).size() / 5 + 1; //how many pages exists
+        int pagesNum = (int) Math.ceil( 1.0 * postRepo.findByUser(u).size() / 5 ); //how many pages exists
         List<Posts> posts = postRepo.findByUser(u, p);
         posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
         
@@ -80,7 +80,8 @@ public class profileController {
                     break;
                 }
             }
-            int pagesNum = postRepo.findByUser(u).size() / 5 + 1; //how many pages exists
+            
+            int pagesNum = (int) Math.ceil( 1.0 *  postRepo.findByUser(u).size() / 5 ); //how many pages exists
             List<Posts> posts = postRepo.findByUser(u, p);
             posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
                 
