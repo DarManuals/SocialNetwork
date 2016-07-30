@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -39,15 +40,14 @@ public class profileController {
     private UserDetailsRepository userDetailsRepo;
     
     @RequestMapping("/profile")
-    public String profileOwn(Model m, @PageableDefault(page = 0, size = 5) Pageable p) throws ParseException{
+    public String profileOwn(Model m, @PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "postId") Pageable p) throws ParseException{
         
         
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();        
         User u = userRepo.findByUsername(userName);
         
-        int pagesNum = postRepo.findByUser(u).size() / 5 + 1; //how many pages exists
+        int pagesNum = (int) Math.ceil( 1.0 * postRepo.findByUser(u).size() / 5 ); //how many pages exists
         List<Posts> posts = postRepo.findByUser(u, p);
-        posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
         
         m.addAttribute("user", u);
         m.addAttribute("posts_data", posts );
@@ -61,7 +61,7 @@ public class profileController {
     }    
     
     @RequestMapping("/profile/{id}")
-    public String profileOther(@PathVariable Long id, Model m, @PageableDefault(page = 0, size = 5) Pageable p){   
+    public String profileOther(@PathVariable Long id, Model m, @PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "postId") Pageable p){   
         
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         User me = userRepo.findByUsername(userName);
@@ -80,9 +80,9 @@ public class profileController {
                     break;
                 }
             }
-            int pagesNum = postRepo.findByUser(u).size() / 5 + 1; //how many pages exists
+            
+            int pagesNum = (int) Math.ceil( 1.0 *  postRepo.findByUser(u).size() / 5 ); //how many pages exists
             List<Posts> posts = postRepo.findByUser(u, p);
-            posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc
                 
             m.addAttribute("user", u);
             m.addAttribute("posts_data", posts);
