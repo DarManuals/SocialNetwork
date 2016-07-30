@@ -19,11 +19,14 @@
             <div class="page-header">
                 <h2>Страница поиска пользователей</h2>
             </div>
-
-            <div class="form-group">
-                <label for="loginInput">Поисковый запрос:</label>
-                <input type="text" class="form-control" id="loginInput" placeholder="Введите логин" />
-            </div>
+            
+            <form class="input-group" method="post" role="form" th:action="@{/search}" >
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Поиск!</button>
+                </span>
+                <input name="name" type="text" class="form-control" placeholder="Введите логин" />
+            </form>
+            <br />
 
             <div class="well well-lg"> 
                 <h5><b>Результаты поиска:</b></h5>
@@ -38,24 +41,29 @@
             </div>    
 
 
-            <ul class="pagination center-block">
-                <li><a href="#">1</a></li>
-                <li class="active"><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">6</a></li>
-                <li><a href="#">7</a></li>
-                <li><a href="#">8</a></li>
-                <li><a href="#">9</a></li>
-            </ul>       
+            <div th:if="${!#lists.isEmpty(users)}" >
+                <ul class="pagination center-block" >
+                    <li th:each="i : ${#numbers.sequence( 1, pages)}" ><a th:href="${'/search?page=' + (i - 1)}" th:text="${i}"></a></li>
+                </ul>
+            </div>        
         </div>
-
-
 
         <div th:replace="main :: footer"></div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <span th:replace="main :: scripts-js"></span>
+        <script type="text/javascript">   
+            /*<![CDATA[*/
+            $(document).ready(function() {     
+                $.ajax({
+                    url: "test.html",
+                    context: document.body,
+                    success: function(){
+                      $(this).addClass("done");
+                    }
+                });
+            });   
+            /*]]>*/
+        </script>       
     </body>
 </html>

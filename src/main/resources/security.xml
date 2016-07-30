@@ -27,7 +27,7 @@
                 <form-login login-processing-url="/login" login-page="/login" authentication-failure-url="/login?error" default-target-url="/profile"/>
                 <logout logout-success-url="/login?logout" />
                 <csrf disabled="true" />
-               <remember-me key="socNet" token-validity-seconds="100" />
+               <remember-me key="socNet" token-validity-seconds="3600" />
         </http>
 
     <authentication-manager>

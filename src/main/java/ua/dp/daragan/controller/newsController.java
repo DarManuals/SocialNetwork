@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import static ua.dp.daragan.GlobalConfig.POSTS_PER_PAGE;
 import ua.dp.daragan.entity.Posts;
 import ua.dp.daragan.entity.User;
 import ua.dp.daragan.repository.UserRepository;
@@ -26,7 +27,7 @@ public class newsController {
     private UserRepository userRepo;
     
     @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public String search(Model m, @PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "postId") Pageable p){
+    public String search(Model m, @PageableDefault(page = 0, size = POSTS_PER_PAGE, direction = Sort.Direction.DESC, sort = "postId") Pageable p){
         
         List<Posts> posts = new LinkedList<Posts>();
         
@@ -39,7 +40,7 @@ public class newsController {
         
         posts.sort((Posts o1, Posts o2) -> -1 * o1.getPostId().compareTo(o2.getPostId())); //compare by postId, desc       
         
-         int pagesNum = (int) Math.ceil( 1.0 * posts.size() / 5 ); //how many pages exists
+         int pagesNum = (int) Math.ceil( 1.0 * posts.size() / POSTS_PER_PAGE ); //how many pages exists
         
          int startIndex = p.getPageNumber() * p.getPageSize();
          int endIndex = startIndex + p.getPageSize();

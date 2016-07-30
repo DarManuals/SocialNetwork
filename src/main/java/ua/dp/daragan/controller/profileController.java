@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import static ua.dp.daragan.GlobalConfig.POSTS_PER_PAGE;
 import ua.dp.daragan.entity.Posts;
 import ua.dp.daragan.entity.User;
 import ua.dp.daragan.entity.UserDetails;
@@ -28,7 +29,7 @@ import ua.dp.daragan.util.DateTimeUtil;
  * @author bogdan
  */
 @Controller
-public class profileController {
+public class profileController{
     
     @Autowired
     private UserRepository userRepo;  
@@ -40,13 +41,13 @@ public class profileController {
     private UserDetailsRepository userDetailsRepo;
     
     @RequestMapping("/profile")
-    public String profileOwn(Model m, @PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "postId") Pageable p) throws ParseException{
+    public String profileOwn(Model m, @PageableDefault(page = 0, size = POSTS_PER_PAGE, direction = Sort.Direction.DESC, sort = "postId") Pageable p) throws ParseException{
         
         
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();        
         User u = userRepo.findByUsername(userName);
         
-        int pagesNum = (int) Math.ceil( 1.0 * postRepo.findByUser(u).size() / 5 ); //how many pages exists
+        int pagesNum = (int) Math.ceil( 1.0 * postRepo.findByUser(u).size() / POSTS_PER_PAGE ); //how many pages exists
         List<Posts> posts = postRepo.findByUser(u, p);
         
         m.addAttribute("user", u);
@@ -61,7 +62,7 @@ public class profileController {
     }    
     
     @RequestMapping("/profile/{id}")
-    public String profileOther(@PathVariable Long id, Model m, @PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "postId") Pageable p){   
+    public String profileOther(@PathVariable Long id, Model m, @PageableDefault(page = 0, size = POSTS_PER_PAGE, direction = Sort.Direction.DESC, sort = "postId") Pageable p){   
         
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         User me = userRepo.findByUsername(userName);
@@ -81,7 +82,7 @@ public class profileController {
                 }
             }
             
-            int pagesNum = (int) Math.ceil( 1.0 *  postRepo.findByUser(u).size() / 5 ); //how many pages exists
+            int pagesNum = (int) Math.ceil( 1.0 *  postRepo.findByUser(u).size() / POSTS_PER_PAGE ); //how many pages exists
             List<Posts> posts = postRepo.findByUser(u, p);
                 
             m.addAttribute("user", u);
