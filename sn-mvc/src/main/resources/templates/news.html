@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" 
+       xmlns:th="http://www.thymeleaf.org" 
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>Aggregator</title>
+        <div th:replace="main :: header"></div>
+        <style th:replace="main :: custom-style" ></style>
+    </head>
+
+    <body role="document">
+
+        <!-- Fixed navbar -->
+        <div th:replace="main :: top-nav-bar"></div>
+
+        <div class="container">
+
+            <div class="page-header">
+                <h2>Лента новостей</h2>
+            </div>
+
+            
+                <div th:if="${#lists.isEmpty(allposts)}" >
+                    У вас ещё нет новостей.
+                </div>
+
+
+                <div  th:each="post : ${allposts}" class="container">
+                    <div>
+                        <div th:text="${post.getPostMsg()}"></div>
+                        <br />
+                        <div >
+                            <i class="text-muted">Автор: <a th:href="${'/profile/' + post.getUser().getUserId()}" class="muted_link" th:text="${post.getUser().getUsername()}"></a>, 
+                                Опубликовано: <span th:text="${post.getDate()}" class="date_time"></span> 
+                            </i>
+                        </div>
+                    </div>   
+                    <hr />
+                </div> 
+
+            <div th:if="${!#lists.isEmpty(allposts)}" >
+                <ul class="pagination center-block" >
+                    <li th:each="i : ${#numbers.sequence( 1, pages)}" ><a th:href="${'/news?page=' + (i - 1)}" th:text="${i}"></a></li>
+                </ul>
+            </div> 
+        </div>
+
+        <div th:replace="main :: footer"></div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <span th:replace="main :: scripts-js"></span>
+        <script type="text/javascript">   
+            /*<![CDATA[*/
+            $(document).ready(function() {     
+               var dat = $('.date_time');
+               jQuery.each( dat, function( ) {
+                    var txt = $(this).text();
+                    var dt = new Date(txt);                    
+                    var res = dt.getDay() +"/"+ dt.getMonth() +"/"+ dt.getFullYear() +", "+ dt.getHours() +":"+ dt.getMinutes() +":"+ dt.getSeconds();
+                    $(this).html(res);
+                });
+            });   
+            /*]]>*/
+        </script>
+    </body>
+</html>

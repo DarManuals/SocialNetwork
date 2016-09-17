@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SocNet.iml" filepath="$PROJECT_DIR$/SocNet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-domain/sn-domain.iml" filepath="$PROJECT_DIR$/sn-domain/sn-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-main/sn-main.iml" filepath="$PROJECT_DIR$/sn-main/sn-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-mvc/sn-mvc.iml" filepath="$PROJECT_DIR$/sn-mvc/sn-mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-repository/sn-repository.iml" filepath="$PROJECT_DIR$/sn-repository/sn-repository.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-service/sn-service.iml" filepath="$PROJECT_DIR$/sn-service/sn-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-util/sn-util.iml" filepath="$PROJECT_DIR$/sn-util/sn-util.iml" />
+    </modules>
+  </component>
+</project>
