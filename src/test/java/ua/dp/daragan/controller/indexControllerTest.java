@@ -26,11 +26,13 @@ public class indexControllerTest {
 
     @Before
     public void setup(){
+        System.out.print("Running " + this.getClass().getName() + ": " );
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void indexTest(){
+        System.out.println("indexTest();");
         String result = ic.index();
         when(ic.index()).thenReturn("index");
         verify(ic).index();
