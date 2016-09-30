@@ -1,16 +1,17 @@
+"use strict";
+
 var React = require('react');
 var ReactDOM = require('react-dom');
+var ReactRouter = require('react-router');
+var Router = ReactRouter.Router;
+var Route = ReactRouter.Route;
+import { hashHistory } from 'react-router'
 
-var Quiz = React.createClass({
+var Home = require('./components/homePage');
+var About = require('./components/about/aboutPage');
 
-	render: function(){
-		return (<div>
-					Msg from react!!!
-				</div>);
-	}
-});
-
-ReactDOM.render(
-	<Quiz />,
-	document.getElementById('app')
-);
+ReactDOM.render(<Router history={hashHistory}>
+                    <Route path="/" component={Home}/>
+                    <Route path="about" component={About} />
+                </Router>,
+    document.getElementById('app'));
