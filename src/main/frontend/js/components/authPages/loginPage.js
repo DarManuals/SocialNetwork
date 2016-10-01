@@ -11,7 +11,7 @@ var Login = React.createClass({
                 <h1>Форма входа</h1>
 
                 <div className="container">
-                    <form className="form-signin" role="form" action="/login}" method="post" style={{'max-width': '50%'}}>
+                    <form name="f" className="form-signin" role="form" action="/login" method="POST" style={{'max-width': '40%'}}>
 
                         <input name="username" type="name" className="form-control" placeholder="Login" required="" autofocus="" />
                         <input name="password" type="password" className="form-control" placeholder="Password" required="" />
@@ -31,3 +31,4 @@ var Login = React.createClass({
 });
 
 module.exports = Login;
+//name='f' action='/login' method='POST'
