@@ -23,10 +23,9 @@ public class authController implements GlobalConfig{
 
     @Autowired
     private UserRepository userRepo;
-    
     @Autowired
     private MySQLUserDetailsService uServ;
-    
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(){
         return "registration";

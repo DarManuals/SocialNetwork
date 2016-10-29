@@ -1,20 +1,22 @@
 package ua.dp.daragan.controller;
 
-import java.util.LinkedList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import static ua.dp.daragan.GlobalConfig.POSTS_PER_PAGE;
 import ua.dp.daragan.entity.Posts;
 import ua.dp.daragan.entity.User;
 import ua.dp.daragan.repository.UserRepository;
+
+import java.security.Principal;
+import java.util.LinkedList;
+import java.util.List;
+
+import static ua.dp.daragan.GlobalConfig.POSTS_PER_PAGE;
 
 /**
  *
@@ -27,12 +29,12 @@ public class newsController {
     private UserRepository userRepo;
     
     @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public String search(Model m, @PageableDefault(page = 0, size = POSTS_PER_PAGE, direction = Sort.Direction.DESC, sort = "postId") Pageable p){
+    public String search(Model m, @PageableDefault(page = 0, size = POSTS_PER_PAGE,
+                                    direction = Sort.Direction.DESC, sort = "postId") Pageable p,
+                         Principal principal){
         
-        List<Posts> posts = new LinkedList<Posts>();
-        
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();  
-        User me = userRepo.findByUsername(userName);
+        List<Posts> posts = new LinkedList<>();
+        User me = userRepo.findByUsername(principal.getName());
         
         for(User friend : me.getFriends() ){
             posts.addAll(friend.getPosts());
