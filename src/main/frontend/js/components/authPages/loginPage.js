@@ -31,4 +31,3 @@ var Login = React.createClass({
 });
 
 module.exports = Login;
-//name='f' action='/login' method='POST'

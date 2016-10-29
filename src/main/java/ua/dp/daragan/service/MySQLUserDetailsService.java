@@ -1,8 +1,5 @@
 package ua.dp.daragan.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +10,10 @@ import org.springframework.stereotype.Service;
 import ua.dp.daragan.GlobalConfig;
 import ua.dp.daragan.entity.User;
 import ua.dp.daragan.repository.UserRepository;
+
+import java.util.Collection;
+
+import static java.util.Arrays.asList;
 
 /**
  *
@@ -31,7 +32,7 @@ public class MySQLUserDetailsService implements UserDetailsService, GlobalConfig
         
         try {
             User client = users.findByUsername(username);
-            loadedUser = new org.springframework.security.core.userdetails.User(client.getUsername(), client.getPassword(), DummyAuthority.getAuth());
+            loadedUser = new org.springframework.security.core.userdetails.User(client.getUsername(), client.getPassword(), getGrantedAuthorities(username));
             
         } catch (Exception repositoryProblem) {
             throw new InternalAuthenticationServiceException(repositoryProblem.getMessage(), repositoryProblem);
@@ -39,18 +40,13 @@ public class MySQLUserDetailsService implements UserDetailsService, GlobalConfig
         return loadedUser;
     }
 
-    static class DummyAuthority implements GrantedAuthority {
-
-        static Collection<GrantedAuthority> getAuth() {
-
-            List<GrantedAuthority> res = new ArrayList<>(1);
-            res.add(new DummyAuthority());
-            return res;
+    private Collection<? extends GrantedAuthority> getGrantedAuthorities(String username) {
+        Collection<? extends GrantedAuthority> authorities;
+        if (username.equals("admin")) {
+            authorities = asList(() -> "ROLE_ADMIN", () -> "ROLE_USER");
+        } else {
+            authorities = asList(() -> "ROLE_USER");
         }
-
-        @Override
-        public String getAuthority() {
-            return "ROLE_USER";
-        }
+        return authorities;
     }
 }
