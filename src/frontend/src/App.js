@@ -11,14 +11,14 @@ class App extends Component {
         this.state = {
              users: [
                   {
-                    id: 0,
-                    login: "User",
-                    city: "Dnipro",
-                    job: "Java developer",
-                    dob: "17.05.92",
-                    about: "Лентяй - кофеман!",
-                    posts: [{id: 0, text: "text1", date: "2016-10-08 12:33:47", userName: "User"},
-                            {id: 1, text: "text2", date: "2016-10-08 12:33:48", userName: "User2"}]
+                        id: 0,
+                        login: "User",
+                        city: "Dnipro",
+                        job: "Java developer",
+                        dob: "1992-10-08",
+                        about: "Лентяй - кофеман!",
+                        posts: [{id: 0, text: "text1", date: "2016-10-08 12:33:47", userName: "User"},
+                                {id: 1, text: "text2", date: "2016-10-08 12:33:48", userName: "User2"}]
                   }
              ]
         };

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Row,Image,Table,Col} from 'react-bootstrap';
+import Moment from 'react-moment';
 
 class UserDetails extends React.Component {
 
@@ -17,7 +18,9 @@ class UserDetails extends React.Component {
                                               <td><b>Город: </b></td><td>{this.props.user.city}</td>
                                          </tr>
                                          <tr>
-                                             <td><b>Дата рождения: </b></td><td type="date">{this.props.user.dob}</td>
+                                             <td><b>Дата рождения: </b></td><td type="date">
+                                                <Moment format="DD-MM-YYYY">{this.props.user.dob}</Moment>
+                                             </td>
                                          </tr>
                                          <tr>
                                               <td><b>Работа: </b></td><td>{this.props.user.job}</td>
