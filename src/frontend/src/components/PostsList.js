@@ -6,8 +6,12 @@ class PostsList extends React.Component {
   render() {
     return (
             <div>
-                <Post />
-                <Post />
+
+                {
+                    this.props.posts.map( (p,i) =>
+                        <Post key={i} data={p} />
+                    )
+                }
             </div>
     );
   }
