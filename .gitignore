@@ -1,8 +1,8 @@
 .idea/
 target/
-src/main/frontend/etc/
-src/main/frontend/node/
-src/main/frontend/node_modules/
+src/main/frontend.old/etc/
+src/main/frontend.old/node/
+src/main/frontend.old/node_modules/
 Network.iml
 nbactions.xml
 .gitignore
